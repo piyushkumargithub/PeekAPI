@@ -22,14 +22,14 @@ PeekAPI is a Postman-like tool built using Python and CustomTkinter. It provides
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/peekapi.git
+git clone https://github.com/piyushkumargithub/peekapi.git
 cd peekapi
 ```
 
 ### 2. Create a virtual environment
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+python -m venv envname
+source envname/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
 ### 3. Install dependencies
