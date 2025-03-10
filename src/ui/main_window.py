@@ -11,14 +11,15 @@ class MainWindow(ctk.CTk):
         super().__init__()
 
         self.title("peekAPI")
-        self.geometry("800x600")
+        self.geometry("800x800")
 
         # Request Panel
         self.request_panel = RequestPanel(self, self.handle_request)
-        self.request_panel.pack(pady=20, fill="both", expand=True)
+        self.request_panel.pack(pady=20,padx=10, fill="both", expand=True)
 
+        # Response Panel
         self.response_panel = ResponsePanel(self)
-        self.response_panel.pack(pady=20, fill="both", expand=True)
+        self.response_panel.pack(pady=20,padx=10, fill="both", expand=True)
 
     def handle_request(self, url, method, headers, body):
         try:

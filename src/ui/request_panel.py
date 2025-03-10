@@ -9,24 +9,31 @@ class RequestPanel(ctk.CTkFrame):
         
         self.on_send_request = on_send_request
         
-        #URL Input
-        self.url_entry = ctk.CTkEntry(self, placeholder_text="Enter URL")
-        self.url_entry.pack(pady=10,padx=30, fill='x')
+        # Container Frame for URL and Method
+        self.url_method_frame = ctk.CTkFrame(self)
+        self.url_method_frame.pack(pady=10, padx=30, fill='x')
 
-        #Request Method Selector 
-        self.method_var= ctk.StringVar(value="GET")
-        self.method_menu = ctk.CTkOptionMenu(self, variable=self.method_var, 
-                                             values=["GET", "POST", "PUT", "DELETE", "PATCH"])
-        self.method_menu.pack(pady=10,padx=100, fill='x')
+        # URL Input
+        self.url_entry = ctk.CTkEntry(self.url_method_frame, placeholder_text="Enter URL")
+        self.url_entry.pack(side='right', fill='x', expand=True)
+
+        # Request Method Selector
+        self.method_var = ctk.StringVar(value="GET")
+        self.method_menu = ctk.CTkOptionMenu(self.url_method_frame, variable=self.method_var, 
+                             values=["GET", "POST", "PUT", "DELETE", "PATCH"])
+        self.method_menu.pack(side='left', padx=(0,5))
 
         #Headers Input
         self.headers_entry = ctk.CTkEntry(self, placeholder_text="Enter Headers")
-        self.headers_entry.pack(pady=10, fill='x')
+        self.headers_entry.pack(pady=10,padx=30, fill='x')
+
+        #Label for the Body Input
+        body_label = ctk.CTkLabel(self, text="Request Body:")
+        body_label.pack(pady=(10, 0), padx=20, anchor="w")
 
         #Body Input
         self.body_entry = ctk.CTkTextbox(self, height=100)
-        self.body_entry.insert('0.0', 'Requst Body for POST, PUT, DELETE, PATCH')
-        self.body_entry.pack(pady=10, fill='both', expand=True)
+        self.body_entry.pack(pady=10,padx=20, fill='both', expand=True)
 
         #Send Request Button
         self.send_button = ctk.CTkButton(self, text='Send Request', command=self.send_request)
