@@ -6,17 +6,17 @@ class ResponsePanel(ctk.CTkFrame):
         
         #Status code display
         self.status_label = ctk.CTkLabel(self, text="Status Code:",font=("Arial",14,"bold"))
-        self.status_label.pack(pady=5,anchor='w')
+        self.status_label.pack(pady=5,padx=20,anchor='w')
 
         #Headers Display
         self.headers_textbox = ctk.CTkTextbox(self, height=100)
         self.headers_textbox.insert('0.0', 'Response Headers')
-        self.headers_textbox.pack(pady=5, fill='both', expand=True)
+        self.headers_textbox.pack(pady=5,padx=20, fill='both', expand=True)
 
         #Response Body Display
         self.body_textbox = ctk.CTkTextbox(self, height=200)
         self.body_textbox.insert('0.0', 'Response Body')
-        self.body_textbox.pack(pady=5, fill='both', expand=True)
+        self.body_textbox.pack(pady=(5,10),padx=20, fill='both', expand=True)
 
     def update_response(self, status_code: int, headers: dict, body: str):
         #Update Status Code
