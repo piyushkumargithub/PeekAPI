@@ -67,7 +67,7 @@ class RequestPanel(ctk.CTkFrame):
             CTkMessagebox(title="Invalid Body", message="Request body is empty for a write method",icon="warning", option_1="OK")
         
         
-        self.on_send_request(url, method, headers, body)
+        self.on_send_request(url, method, parsed_headers, body)
 
     def is_valid_url(self, url):
         url_pattern=re.compile(
