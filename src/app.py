@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from ui.request_panel import RequestPanel
 from ui.response_panel import ResponsePanel
+from ui.sidebar import Sidebar
 from utils.request_handler import handle_request  # Import from utils
 
 ctk.set_appearance_mode("dark")
@@ -11,15 +12,23 @@ class MainWindow(ctk.CTk):
         super().__init__()
 
         self.title("PeekAPI")
-        self.geometry("800x800")
+        self.geometry("1000x800")
+
+        # self.grid_columnconfigure(0, weight=1)
+        self.grid_columnconfigure(1, weight=3)
+        self.grid_rowconfigure(0, weight=1)
+
+        # Sidebar
+        self.sidebar = Sidebar(self, request_panel=None)
+        self.sidebar.grid(row=0,column=0, sticky="nsw",padx=10, pady=20)
 
         # Request Panel
         self.request_panel = RequestPanel(self, self.process_request)
-        self.request_panel.pack(pady=20, padx=10, fill="both", expand=True)
+        self.request_panel.grid(row=0, column=1, sticky="nsew",pady=20, padx=10)
 
         # Response Panel
         self.response_panel = ResponsePanel(self)
-        self.response_panel.pack(pady=20, padx=10, fill="both", expand=True)
+        self.response_panel.grid(row=1, column=1, sticky="nsew",pady=20, padx=10)
 
     def process_request(self, url, method, headers, body):
         """Calls request handler and updates response panel."""
