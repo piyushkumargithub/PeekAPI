@@ -33,5 +33,5 @@ class ResponsePanel(ctk.CTkFrame):
             formatted_body = json.dumps(parsed_body, indent=4)
         except json.JSONDecodeError:
             formatted_body = body
-
+        self.body_textbox.delete('0.0', 'end')
         self.body_textbox.insert('0.0', formatted_body)
