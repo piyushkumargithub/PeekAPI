@@ -1,11 +1,13 @@
 import customtkinter as ctk
 from CTkMessagebox import CTkMessagebox
+from utils.collections_handler import save_collection
 import re
 import json
 
 class RequestPanel(ctk.CTkFrame):
-    def __init__(self, parent, on_send_request):
+    def __init__(self, parent, on_send_request,sidebar):
         super().__init__(parent)
+        self.sidebar = sidebar
         
         self.on_send_request = on_send_request
         
@@ -35,9 +37,44 @@ class RequestPanel(ctk.CTkFrame):
         self.body_entry = ctk.CTkTextbox(self, height=100)
         self.body_entry.pack(pady=10,padx=20, fill='both', expand=True)
 
-        #Send Request Button
-        self.send_button = ctk.CTkButton(self, text='Send Request', command=self.send_request)
-        self.send_button.pack(pady=20)
+        # Container frame for buttons
+        self.button_frame = ctk.CTkFrame(self)
+        self.button_frame.pack(pady=20, padx=20)
+
+        # Send Request Button
+        self.send_button = ctk.CTkButton(self.button_frame, text='Send Request', command=self.send_request)
+        self.send_button.pack(side='left', expand=True, padx=5)
+
+        # Save Request Button
+        self.save_button = ctk.CTkButton(self.button_frame, text='Save Request', command=self.save_request)
+        self.save_button.pack(side='right', expand=True, padx=5)
+
+
+    def save_request(self):
+        name = self.url_entry.get() or "New Request"
+        url = self.url_entry.get().strip()
+        method = self.method_var.get()
+        headers = self.headers_entry.get().strip()
+        body = self.body_entry.get('0.0', 'end').strip()
+
+        save_collection(name, url, method, headers, body)
+
+        if self.sidebar:
+            self.sidebar.load_collections()
+
+    def load_requests(self, url, method, headers, body):
+        self.url_entry.delete(0, 'end')
+        self.url_entry.insert(0, url)
+
+        self.method_var.set(method)
+
+        self.headers_entry.delete(0, 'end')
+        self.headers_entry.insert(0, headers)
+
+        self.body_entry.delete('0.0', 'end')
+        self.body_entry.insert('0.0', body)
+
+
 
     def send_request(self):
         url = self.url_entry.get().strip()
