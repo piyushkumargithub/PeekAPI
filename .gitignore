@@ -2,3 +2,6 @@ peekAPI/
 __pycache__/
 .vscode/
 collections.json
+dist/
+build/
+PeekAPI.spec
