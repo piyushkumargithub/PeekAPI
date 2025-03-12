@@ -1,5 +1,6 @@
 import json
 import os
+import uuid
 
 collections_file="collections.json"
 
@@ -15,6 +16,7 @@ def save_collection(name,url,method,headers,body):
     """Saves a collection to the database."""
     collections = load_collections()
     collections.append({
+        "id": str(uuid.uuid4()), # unique ID
         "name": name,
         "url": url,
         "method": method,
@@ -25,20 +27,20 @@ def save_collection(name,url,method,headers,body):
     with open(collections_file, "w") as file:
         json.dump(collections, file, indent=4)
 
-def get_collection_names():
-    """Returns a list of collection names."""
-    return [entry["name"] for entry in load_collections()]
 
-def get_collection_by_name(name):
-    """Returns a collection by name."""
-    for entry in load_collections():
-        if entry["name"] == name:
+def get_collection_by_id(collection_id):
+    """Finds a collection by its unique ID."""
+    collections = load_collections()
+    for entry in collections:
+        if entry["id"] == collection_id:
             return entry
-
     return None
 
-def delete_collection(name):
+
+def delete_collection(collection_id):
+    """Deletes a collection by ID instead of name."""
     collections = load_collections()
-    collections = [entry for entry in collections if entry["name"] != name]
+    collections = [entry for entry in collections if entry["id"] != collection_id]
+
     with open(collections_file, "w") as file:
         json.dump(collections, file, indent=4)
