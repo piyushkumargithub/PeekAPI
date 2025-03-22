@@ -10,7 +10,8 @@ class Sidebar(ctk.CTkFrame):
         self.label = ctk.CTkLabel(self, text="Collections", font=("Arial", 15, "bold"))
         self.label.pack(pady=10)
 
-        self.scrollable_frame = ctk.CTkScrollableFrame(self)
+        self.scrollable_frame = ctk.CTkScrollableFrame(self,scrollbar_button_color=self.cget("fg_color"),
+                                                       scrollbar_button_hover_color=self.cget("bg_color"))
         self.scrollable_frame.pack(fill="both", expand=True,padx=10,pady=5)
 
         self.load_collections()

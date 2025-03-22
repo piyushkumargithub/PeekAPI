@@ -12,7 +12,6 @@ class MainWindow(ctk.CTk):
         super().__init__()
 
         self.title("PeekAPI")
-        self.iconbitmap("output.ico")
         self.geometry("1000x800")
 
         # self.grid_columnconfigure(0, weight=1)
